@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: ;
+  }
+}
+
+@layer utilities {
+  .shadow-outer-lg {
+    box-shadow: 0 10px 50px 60px rgba(255, 255, 255, 0.6);
+  }
+}

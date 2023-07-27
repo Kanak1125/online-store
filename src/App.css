@@ -1,0 +1,13 @@
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    color: #020617;
+    font-weight: 600;
+}
+
+.swiper-pagination-bullet {
+    background-color: #94a3b8;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #020617 !important;
+}
