@@ -38,10 +38,10 @@ const Home = (props) => {
 
   const categoryCards = categories.map((c, i) => {
     return (
-      <Link to={`/category/${c}`} key={i}>
-        <div className='h-[400px] overflow-hidden rounded-md relative'>
-          <div className='absolute h-full w-full bg-accent/20'></div>
-          <img src={categoriesImgArr[i]} alt="" className='object-cover object-top w-full h-full hover:scale-125'/>
+      <Link to={`/category/${c}`} key={i} className='rounded-md overflow-hidden '>
+        <div className='h-[400px] overflow-hidden relative hover:scale-110 transition-all duration-200'>
+          <div className='absolute h-full w-full bg-accent/20 hover:bg-accent/40 transition-all duration-200'></div>
+          <img src={categoriesImgArr[i]} alt="" className='object-cover object-top w-full h-full'/>
           {/* hover scale not working */}
         </div>
       </Link>
@@ -58,15 +58,18 @@ const Home = (props) => {
         navigation
         loop={true}
         autoplay={{
-          delay: 2500, 
+          delay: 3500, 
           disableOnInteraction: false
         }}
         pagination={{ clickable: true }}
       >
         {swiperSlides}
       </Swiper>
-      <main className='max-w-screen-xl mx-auto px-40 py-20 grid gap-11 grid-cols-1 md:grid-cols-3 z-20 relative shadow-outer-lg'>
-        {categoryCards}
+      <main className='max-w-screen-xl mx-auto px-10 md:px-40 py-20 z-20 relative shadow-outer-lg'>
+        <h2 className='text-2xl font-bold'>Unveiling Our Finest Collections: Explore Top Categories</h2>
+        <div className='grid gap-11 grid-cols-1 md:grid-cols-3 my-10'>
+          {categoryCards}
+        </div>
       </main>
     </>
   )

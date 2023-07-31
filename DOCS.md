@@ -8,5 +8,7 @@
 - npm i @tanstack/react-query-devtools
 
 - npm i swiper
+- npm i lunr
+- npm i use-react-router-breadcrumbs --save
 
 ### Its a react app so run 'npm start' to run the app in your local machine

@@ -4,15 +4,17 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import Category from './pages/Category';
+import AllProducts from './pages/AllProducts';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from './components/Navbar';
+import { searchContext } from './useContext/context';
 
 function App() {
   const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   // const [cartList, setCartList] = useState(true);
   const [isHamMenuActive, setIsHamMenuActive] = useState(false);
   const [toggleCategories, setToggleCategories] = useState(false);
@@ -36,13 +38,16 @@ function App() {
   }
   return (
     <BrowserRouter>
-      <Navbar 
-        isHamMenuActive={isHamMenuActive}
-        setIsHamMenuActive={setIsHamMenuActive}
-        toggleCategories={toggleCategories}
-        setToggleCategories={setToggleCategories}
-        categories={categories}
-      />
+      <searchContext.Provider value={{searchTerm, setSearchTerm}}>
+        <Navbar 
+          isHamMenuActive={isHamMenuActive}
+          setIsHamMenuActive={setIsHamMenuActive}
+          toggleCategories={toggleCategories}
+          setToggleCategories={setToggleCategories}
+          categories={categories}
+          data={data}
+        />
+      </searchContext.Provider>
       <Routes>
       <Route path="/" element={<Home
           data={data}
@@ -56,9 +61,14 @@ function App() {
           searchTerm={searchTerm}
         />} />
         <Route path="/category/:categoryName" element={<Category />} />
-        <Route path="/products" element={<Product />} />
+        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/products/:productID" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      <footer className='bg-accent text-primary py-10 text-center'>
+          <small>&copy; 2023 All rights reserved</small>  
+          <p>Developed By S. Kanak with &#10084;</p>  
+      </footer>
     </BrowserRouter>
   )
 }
