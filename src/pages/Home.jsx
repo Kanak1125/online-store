@@ -65,7 +65,7 @@ const Home = (props) => {
       >
         {swiperSlides}
       </Swiper>
-      <main className='max-w-screen-xl mx-auto px-10 md:px-40 py-20 z-20 relative shadow-outer-lg'>
+      <main className='max-w-screen-xl mx-auto px-10 md:px-40 py-20 z-20 relative shadow-outer-lg min-h-screen'>
         <h2 className='text-2xl font-bold'>Unveiling Our Finest Collections: Explore Top Categories</h2>
         <div className='grid gap-11 grid-cols-1 md:grid-cols-3 my-10'>
           {categoryCards}
