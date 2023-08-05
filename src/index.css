@@ -31,4 +31,25 @@
   .icon-shadow {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
+
+  .hide-scroll::-webkit-inner-spin-button,
+  .hide-scroll::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0;
+  }
+
+  .button-shadow {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 300ms ease-in-out;
+  }
+  .button-shadow:hover {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  }
+  .button-shadow:active {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+    /* margin-top: 1px; */
+    transform: translateY(2%);
+  }
+
 }

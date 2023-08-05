@@ -8,7 +8,7 @@ const Breadcrumbs = () => {
     <div className="max-w-screen-xl mx-auto px-5 py-5 md:px-10">
       {breadcrumbs.map(({ match, breadcrumb }) => (
         <NavLink key={match.pathname} to={match.pathname}>
-          {breadcrumb.props.children + " / "}
+          {decodeURIComponent(breadcrumb.props.children) + " / "}
         </NavLink>
       ))}
     </div>

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 // import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Card from '../components/Card';
+import CardSkeletonLoader from '../components/CardSkeletonLoader';
 
 const Category = () => {
   const [catData, setCatData] = useState([]);
@@ -13,7 +14,7 @@ const Category = () => {
 
   // const breadcrumbs = useBreadcrumbs();
 
-  const {isLoading, error, refetch} = useQuery({
+  const {isLoading, error, isFetching, refetch} = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       try {
@@ -37,16 +38,24 @@ const Category = () => {
       <Breadcrumbs/>
       <main className='max-w-screen-xl mx-auto px-10 py-10 z-20 min-h-screen'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>
-          {catData.map(data => {
-            const {image, title, price} = data;
-            return (
-              <Card
-                key={title}
-                imgUrl={image}
-                title={title}
-                price={price}
-            />)
-          })}
+          {
+            isLoading || isFetching ? 
+              Array(11).fill(0).map((el, i) => (
+                <CardSkeletonLoader key={i}/>
+              ))
+            :
+            catData.map(data => {
+              const {id, image, title, price} = data;
+              return (
+                <Card
+                  key={id}
+                  id={id}
+                  imgUrl={image}
+                  title={title}
+                  price={price}
+              />)
+            })
+          }
         </div>
       </main>
     </>

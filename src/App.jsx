@@ -62,7 +62,7 @@ function App() {
           searchTerm={searchTerm}
         />} />
         <Route path="/category/:categoryName" element={<Category />} />
-        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/all-products" element={<AllProducts data={data} isLoading={isLoading}/>} />
         <Route path="/products/:productID" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
