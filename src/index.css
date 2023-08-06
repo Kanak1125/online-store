@@ -52,4 +52,8 @@
     transform: translateY(2%);
   }
 
+  .max-content {
+    width: max-content;
+  }
+
 }

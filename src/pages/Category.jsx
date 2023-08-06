@@ -15,7 +15,7 @@ const Category = () => {
   // const breadcrumbs = useBreadcrumbs();
 
   const {isLoading, error, isFetching, refetch} = useQuery({
-    queryKey: ["categories"],
+    queryKey: [`categories-${categoryName}`],
     queryFn: async () => {
       try {
         const response = await axios.get(`https://fakestoreapi.com/products/category/${categoryName}`);

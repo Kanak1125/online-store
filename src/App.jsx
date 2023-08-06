@@ -10,7 +10,7 @@ import Cart from './pages/Cart';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from './components/Navbar';
-import { searchContext } from './useContext/context';
+import { searchContext } from './context/context';
 
 function App() {
   const [data, setData] = useState([]);
@@ -61,10 +61,11 @@ function App() {
           data={data}
           searchTerm={searchTerm}
         />} />
+        {/* <Route path="/category/" element={<Home />} /> */}
         <Route path="/category/:categoryName" element={<Category />} />
         <Route path="/all-products" element={<AllProducts data={data} isLoading={isLoading}/>} />
         <Route path="/products/:productID" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart data={data}/>} />
       </Routes>
       <footer className='bg-accent text-primary py-10 text-center '>
           <small>&copy; 2023 All rights reserved</small>  

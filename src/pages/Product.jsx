@@ -4,14 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom'
 // import Breadcrumbs from '../components/Breadcrumbs';
 import ProductSkeletonLoader from '../components/ProductSkeletonLoader';
+import { useShoppingCart } from '../context/ShoppingCartContext';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
+import { formatCurrency } from '../components/formatCurrency';
 
 const Product = () => {
   const { productID } = useParams();
   const [productData, setProductData] = useState({});
+  const {cartItems, getItemQuantity, setItemQuantity, increaseQuantity, decreaseQuantity} = useShoppingCart();
 
-  const {isLoading, error, data, isFetching} = useQuery({
-    queryKey: ["product"],
+  const {isLoading, error, isFetching} = useQuery({
+    queryKey: [`product-${productID}`],
     queryFn: async () => {
       const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
       setProductData(response.data);
@@ -19,8 +22,10 @@ const Product = () => {
     }
   })
 
+  console.log(cartItems);
   const [quantity, setQuantity] = useState(1);
 
+  console.log(quantity);
   function incrementQuantity() {
       setQuantity(prevQuantity => prevQuantity + 1);
   }
@@ -29,11 +34,11 @@ const Product = () => {
       if (quantity === 1) return; 
       setQuantity(prevQuantity => prevQuantity - 1);
   }
-  function handleQuantity(e) {
-      const value = e.target.value;
-      const parsedValue = parseInt(value); // the value we get from the input field is string so parsing to INTEGER type...
-      setQuantity(!isNaN(parsedValue) ? parsedValue : value);
-  }
+  // function handleQuantity(e) {
+  //     const value = e.target.value;
+  //     const parsedValue = parseInt(value); // the value we get from the input field is string so parsing to INTEGER type...
+  //     setQuantity(!isNaN(parsedValue) ? parsedValue : value);
+  // }
 
   return (
     <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen '>
@@ -49,7 +54,7 @@ const Product = () => {
           </div>
           <div className="my-4 p-2 md:basis-3/5">
             <h2 className='text-2xl font-semibold'>{productData.title}</h2>
-            <p className='my-5 font-bold'>${productData.price}</p>
+            <p className='my-5 font-bold'>{formatCurrency(productData.price)}</p>
             <div className="flex text-yellow my-3">
                 <BsStarFill size={18}/>
                 <BsStarFill size={18}/>
@@ -62,8 +67,8 @@ const Product = () => {
             <div className="mt-10 flex items-center ">
                 <label htmlFor="quantity" title='Quantity' className='mr-4'>Qty:</label>
                 <button 
-                  className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold" 
-                  onClick={decrementQuantity}
+                  className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all" 
+                  onClick={() => decrementQuantity()}
                 >-</button>
                 <input 
                     type="number" 
@@ -71,18 +76,23 @@ const Product = () => {
                     id="quantity" 
                     className='mx-2 rounded hide-scroll text-center border-2 border-accent outline-none h-[32px]'
                     value={quantity} 
-                    min={1} 
+                    min={0} 
                     max={5}
-                    onChange={(e) => handleQuantity(e)}
+                    // onChange={(e) => setQuantity()}
+                    // onChange={(e) => handleQuantity(e)}
+                    readOnly
                 />
                 <button 
-                  className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold " 
-                  onClick={incrementQuantity}
+                  className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all" 
+                  onClick={() => incrementQuantity()}
                 >+</button>
             </div>
-            <div className='my-10'>
-              <button className="mr-6 bg-accent w-[120px] h-10 rounded text-primary button-shadow ">Add to cart</button>
-              <button className="mr-6 w-[120px] h-10 rounded button-shadow bg-primary text-accent border-2 border-accent hover:bg-accent hover:text-primary">Buy now</button>
+            <div className='my-8'>
+              <button 
+                className="mr-6 mt-4 bg-accent w-[120px] h-10 rounded text-primary button-shadow "
+                onClick={() => setItemQuantity(productID, quantity)}  
+              >Add to cart</button>
+              <button className="mr-6 mt-4 w-[120px] h-10 rounded button-shadow bg-primary text-accent border-2 border-accent hover:bg-accent hover:text-primary">Buy now</button>
             </div>
           </div>
         </div>

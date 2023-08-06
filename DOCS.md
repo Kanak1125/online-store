@@ -11,5 +11,6 @@
 - npm i lunr
 <!-- - npm i use-react-router-breadcrumbs --save -->
 - npm i react-router-breadcrumbs
+- npm i simplebar-react
 
 ### Its a react app so run 'npm start' to run the app in your local machine

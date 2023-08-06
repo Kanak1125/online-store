@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import {BsHeart, BsHeartFill} from 'react-icons/bs';
+import { formatCurrency } from './formatCurrency';
 
 const Card = (props) => {
   const {id, imgUrl, title, price} = props;
@@ -19,7 +20,7 @@ const Card = (props) => {
           <Link to={`/products/${id}`}>
             <h3 className='italic text-xl font-semibold line-clamp-2'>{title}</h3>
           </Link>
-          <p className='mt-4 text-lg font-bold'>$ <span>{price}</span></p>
+          <p className='mt-4 text-lg font-bold'>{formatCurrency(price)}</p>
       </div>
     </div>
   )

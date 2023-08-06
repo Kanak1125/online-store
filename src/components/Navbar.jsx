@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {BsSearch, BsCart3} from 'react-icons/bs';
 import {FiChevronDown} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { useSearchContext } from '../useContext/context';
+import { useSearchContext } from '../context/context';
 import lunr from 'lunr';
 
 const Navbar = (props) => {
