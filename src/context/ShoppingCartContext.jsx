@@ -16,19 +16,20 @@ export function ShoppingCartProvider({ children }) {
     }
 
     function setItemQuantity(id, qty) {
+        // const currentID = +id;
         console.log("Im being called...");
         setCartItems(currentItems => {
-            if(!currentItems.some(item => item.id === id)) {
+            if(!currentItems.some(item => item.id == id)) {
                 return [
                     ...currentItems,
                     {
-                        id,
+                        id: +id,
                         quantity: parseInt(qty)
                     }
                 ]
             } else {
                 return currentItems.map(item => {
-                    if (item.id === id) {
+                    if (item.id == id) {
                         return {
                             ...item,
                             quantity: parseInt(qty),    // we get the value from the input field as String, so parsing it to Int...
@@ -47,7 +48,7 @@ export function ShoppingCartProvider({ children }) {
                 return [
                     ...currentItems,
                     {
-                        id,
+                        id: +id,
                         quantity: 1
                     }
                 ]
@@ -86,10 +87,12 @@ export function ShoppingCartProvider({ children }) {
     }
 
     function removeQuantity(id) {
+        console.log("removed...")
         setCartItems(currentItems => (
             currentItems.filter(item => item.id !== id)
         ))
     }
+
     // console.log(cartItems);
 
     return (

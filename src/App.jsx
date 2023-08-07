@@ -63,9 +63,9 @@ function App() {
         />} />
         {/* <Route path="/category/" element={<Home />} /> */}
         <Route path="/category/:categoryName" element={<Category />} />
-        <Route path="/all-products" element={<AllProducts data={data} isLoading={isLoading}/>} />
+        <Route path="/all-products" element={<AllProducts data={data} isLoading={isLoading} error={error}/>} />
         <Route path="/products/:productID" element={<Product />} />
-        <Route path="/cart" element={<Cart data={data}/>} />
+        <Route path="/cart" element={<Cart data={data} />} />
       </Routes>
       <footer className='bg-accent text-primary py-10 text-center '>
           <small>&copy; 2023 All rights reserved</small>  

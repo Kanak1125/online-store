@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { useShoppingCart } from '../context/ShoppingCartContext';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
 import { formatCurrency } from '../components/formatCurrency';
 
-const Product = () => {
+const Product = ({data}) => {
   const { productID } = useParams();
   const [productData, setProductData] = useState({});
   const {cartItems, getItemQuantity, setItemQuantity, increaseQuantity, decreaseQuantity} = useShoppingCart();
@@ -40,6 +40,8 @@ const Product = () => {
   //     setQuantity(!isNaN(parsedValue) ? parsedValue : value);
   // }
 
+  if (error) return <h1 className='text-center'>Error: {error}</h1>
+
   return (
     <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen '>
       {/* <Breadcrumbs/> */}
@@ -68,8 +70,8 @@ const Product = () => {
                 <label htmlFor="quantity" title='Quantity' className='mr-4'>Qty:</label>
                 <button 
                   className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all" 
-                  onClick={() => decrementQuantity()}
-                >-</button>
+                  onClick={() => incrementQuantity()}
+                >+</button>
                 <input 
                     type="number" 
                     name="" 
@@ -83,9 +85,9 @@ const Product = () => {
                     readOnly
                 />
                 <button 
-                  className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all" 
-                  onClick={() => incrementQuantity()}
-                >+</button>
+                  className={`w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all ${quantity == 1 ? 'cursor-not-allowed' : ''}`} 
+                  onClick={() => decrementQuantity()}
+                >-</button>
             </div>
             <div className='my-8'>
               <button 

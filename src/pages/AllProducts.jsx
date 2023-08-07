@@ -3,8 +3,9 @@ import Card from '../components/Card';
 import CardSkeletonLoader from '../components/CardSkeletonLoader';
 
 const AllProducts = (props) => {
-  const {data, isLoading} = props;
+  const {data, isLoading, error} = props;
 
+  if (error) return <h1 className='text-center'>Error: {error}</h1>
   return (
     <>
       <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen'>

@@ -4,6 +4,10 @@ import {FiChevronDown} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useSearchContext } from '../context/context';
 import lunr from 'lunr';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+import Ping from './Ping';
+
 
 const Navbar = (props) => {
   const {searchTerm, setSearchTerm} = useSearchContext();
@@ -93,13 +97,15 @@ const Navbar = (props) => {
               <BsSearch/>
             </button>
             {/* search result box */}
-            {isSearching && <div className='bg-primary w-screen md:w-full h-auto absolute z-40 text-accent rounded my-1 max-h-[360px] overflow-y-auto'>
+            {isSearching && <div className='bg-primary w-screen md:w-full h-auto absolute z-40 text-accent rounded my-1 max-h-[360px] overflow-y-scroll no-scrollbar'>
               {
               searchedItems.length === 0 ? <h3 className='text-center py-5'>No results...</h3>
               :
-              <ul>
-                {searchedResults}
-              </ul>
+              <SimpleBar className='max-h-[444px]'>
+                <ul>
+                  {searchedResults}
+                </ul>
+              </SimpleBar>
               }
             </div>}
           </form>
@@ -132,7 +138,12 @@ const Navbar = (props) => {
                 <Link to={'/all-products'} className='hover:text-secondary duration-200' onClick={() => setIsHamMenuActive(false)}>Products</Link>
               </li>
             </ul>
-            <Link to={'/cart'} className='fixed bottom-5 right-5  p-3 shadow-xl rounded-full bg-accent md:static md:text-primary md:p-0 z-30'><BsCart3 /></Link>
+            <Link to={'/cart'} className='fixed bottom-5 right-5 p-3 shadow-xl rounded-full bg-accent md:static md:text-primary md:p-0 z-30'>
+              <div className='relative'>
+                <BsCart3 />
+                <Ping />
+              </div>
+            </Link>
           </nav>
           {/* burger menu */}
           <div className={'cursor-pointer md:hidden z-20'} onClick={() => setIsHamMenuActive(prevState => !prevState)}>
