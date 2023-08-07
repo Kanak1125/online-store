@@ -1,4 +1,5 @@
 import { useState, createContext, useContext } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const ShoppingCartContext = createContext({});
 
@@ -9,7 +10,8 @@ export function useShoppingCart() {
 
 // component that acts as the wrapper (or the Provider of the ShoppingCartContext)...
 export function ShoppingCartProvider({ children }) {
-    const [cartItems, setCartItems] = useState([]);
+    // const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useLocalStorage("cart_items", []);
 
     function getItemQuantity(id) {
         return cartItems.find(item => item.id === id)?.quantity || 0;   // returns the first item which satisfies the condition in the array, and if there is the presence of that item in the array it returns the quantity, else returns 0 rather than undefined...
@@ -23,7 +25,7 @@ export function ShoppingCartProvider({ children }) {
                 return [
                     ...currentItems,
                     {
-                        id: +id,
+                        id: +id,    // '+' converts to number if string
                         quantity: parseInt(qty)
                     }
                 ]

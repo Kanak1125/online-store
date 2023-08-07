@@ -80,13 +80,13 @@ const Navbar = (props) => {
   return (
     <header className='w-full py-5 px-5 md:px-10 bg-accent text-primary '>
         {/* space-x-3 for horizontal space between the flex-box items of 3units and 10units for the medium and large screen sizes... */}
-        <div className='flex items-center justify-between max-w-screen-xl mx-auto space-x-3 md:space-x-10 '> 
+        <div className='flex items-center justify-between max-w-screen-xl mx-auto gap-4 '> 
           <Link to={'/'} className="logo text-bold text-xl md:text-2xl z-20">Online <span className='text-secondary'>Store</span></Link>
 
-          <form action="" className="search-form relative text-base w-200 flex-1 z-20">
+          <form action="" className="search-form relative text-base w-200 flex-1 z-20 ">
             <input 
               type="text" 
-              className='text-accent py-2 px-3 rounded w-full outline-none bg-primary'
+              className='text-accent py-2 px-3 rounded w-full outline-none bg-primary min-w-[50px]'
               placeholder='Search here...'
               onClick={(e) => e.preventDefault()}
               onChange={(e) => listSearchItems(e)}
@@ -97,7 +97,7 @@ const Navbar = (props) => {
               <BsSearch/>
             </button>
             {/* search result box */}
-            {isSearching && <div className='bg-primary w-screen md:w-full h-auto absolute z-40 text-accent rounded my-1 max-h-[360px] overflow-y-scroll no-scrollbar'>
+            {isSearching && <div className='bg-primary w-full h-auto absolute md:left-0 z-40 text-accent rounded my-1 max-h-[360px] overflow-y-scroll no-scrollbar'>
               {
               searchedItems.length === 0 ? <h3 className='text-center py-5'>No results...</h3>
               :

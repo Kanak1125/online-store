@@ -11,7 +11,7 @@ import { formatCurrency } from '../components/formatCurrency';
 const Product = ({data}) => {
   const { productID } = useParams();
   const [productData, setProductData] = useState({});
-  const {cartItems, getItemQuantity, setItemQuantity, increaseQuantity, decreaseQuantity} = useShoppingCart();
+  const {cartItems, setItemQuantity} = useShoppingCart();
 
   const {isLoading, error, isFetching} = useQuery({
     queryKey: [`product-${productID}`],
@@ -25,7 +25,6 @@ const Product = ({data}) => {
   console.log(cartItems);
   const [quantity, setQuantity] = useState(1);
 
-  console.log(quantity);
   function incrementQuantity() {
       setQuantity(prevQuantity => prevQuantity + 1);
   }
