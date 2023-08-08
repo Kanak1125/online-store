@@ -1,6 +1,6 @@
 import './App.css'
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import Category from './pages/Category';
@@ -15,10 +15,8 @@ import { searchContext } from './context/context';
 function App() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  // const [cartList, setCartList] = useState(true);
   const [isHamMenuActive, setIsHamMenuActive] = useState(false);
   const [toggleCategories, setToggleCategories] = useState(false);
-  // console.log(data);
 
   const categories = [...new Set(data.map(d => d.category))];
   console.log(categories);
@@ -33,10 +31,6 @@ function App() {
         // staleTime: 1000 * 60 * 5    // the data will refetch only after 5 mins even if the page changes...
     })
 
-  function handleSearch(e) {
-    const value = e.target.value;
-    setSearchTerm(value);
-  }
   return (
     <BrowserRouter>
       <searchContext.Provider value={{searchTerm, setSearchTerm}}>

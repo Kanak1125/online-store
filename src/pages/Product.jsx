@@ -8,16 +8,14 @@ import { useShoppingCart } from '../context/ShoppingCartContext';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
 import { formatCurrency } from '../components/formatCurrency';
 
-const Product = ({data}) => {
+const Product = () => {
   const { productID } = useParams();
-  const [productData, setProductData] = useState({});
-  const {cartItems, setItemQuantity} = useShoppingCart();
+  const {cartItems, getItemQuantity, setItemQuantity} = useShoppingCart();
 
-  const {isLoading, error, isFetching} = useQuery({
+  const {isLoading, error, data, isFetching} = useQuery({
     queryKey: [`product-${productID}`],
     queryFn: async () => {
       const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
-      setProductData(response.data);
       return response.data;
     }
   })
@@ -51,11 +49,11 @@ const Product = ({data}) => {
         :
         <div className="flex flex-col my-6 md:flex-row items-center gap-10">
           <div className="w-full h-[360px] md:basis-2/5 bg-white rounded py-8">
-            <img src={productData.image} alt="" className="w-full h-full object-contain" />
+            <img src={data.image} alt="" className="w-full h-full object-contain" />
           </div>
           <div className="my-4 p-2 md:basis-3/5">
-            <h2 className='text-2xl font-semibold'>{productData.title}</h2>
-            <p className='my-5 font-bold'>{formatCurrency(productData.price)}</p>
+            <h2 className='text-2xl font-semibold'>{data.title}</h2>
+            <p className='my-5 font-bold'>{formatCurrency(data.price)}</p>
             <div className="flex text-yellow my-3">
                 <BsStarFill size={18}/>
                 <BsStarFill size={18}/>
@@ -64,7 +62,7 @@ const Product = ({data}) => {
                 <BsStarHalf size={18}/>
             </div>
             <p className='mb-5'>Availability: In stock</p>
-            <p className="">{productData.description}</p>
+            <p className="">{data.description}</p>
             <div className="mt-10 flex items-center ">
                 <label htmlFor="quantity" title='Quantity' className='mr-4'>Qty:</label>
                 <button 

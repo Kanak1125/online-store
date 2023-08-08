@@ -95,8 +95,6 @@ export function ShoppingCartProvider({ children }) {
         ))
     }
 
-    // console.log(cartItems);
-
     return (
         <ShoppingCartContext.Provider value={
             {

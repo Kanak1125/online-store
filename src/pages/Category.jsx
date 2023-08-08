@@ -8,30 +8,25 @@ import Card from '../components/Card';
 import CardSkeletonLoader from '../components/CardSkeletonLoader';
 
 const Category = () => {
-  const [catData, setCatData] = useState([]);
   const {categoryName} = useParams();
   console.log(categoryName);
 
   // const breadcrumbs = useBreadcrumbs();
 
-  const {isLoading, error, isFetching, refetch} = useQuery({
+  const {isLoading, error, isFetching, data} = useQuery({
     queryKey: [`categories-${categoryName}`],
     queryFn: async () => {
       try {
         const response = await axios.get(`https://fakestoreapi.com/products/category/${categoryName}`);
-        setCatData(response.data);
         return response.data;
       } catch (err) {
         throw new Error("Failed to fetch category data");
       }
     },
-    // staleTime: 1000 * 60 * 5    // the data will refetch only after 5 mins even if the page changes...
+    staleTime: 1000 * 60 * 10    // the data will refetch only after 5 mins even if the page changes...
   })
 
-  useEffect(() => {
-    refetch();
-  }, [categoryName]);
-  console.log(catData);
+  if (error) return <h1 className='text-center'>Error: {error}</h1>
   
   return (
     <>
@@ -44,8 +39,8 @@ const Category = () => {
                 <CardSkeletonLoader key={i}/>
               ))
             :
-            catData.map(data => {
-              const {id, image, title, price} = data;
+            data.map(catData => {
+              const {id, image, title, price} = catData;
               return (
                 <Card
                   key={id}
