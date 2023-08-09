@@ -10,25 +10,25 @@ import { formatCurrency } from '../components/formatCurrency';
 
 const Product = () => {
   const { productID } = useParams();
-  const {cartItems, getItemQuantity, setItemQuantity} = useShoppingCart();
+  const {cartItems, getItemQuantity, setItemQuantity, increaseQuantity, decreaseQuantity} = useShoppingCart();
 
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: [`product-${productID}`],
     queryFn: async () => {
       const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
       return response.data;
-    }
+    },
+    staleTime: 1000 * 60 * 10
   })
 
-  console.log(cartItems);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(getItemQuantity(parseInt(productID)) || 0);
 
   function incrementQuantity() {
       setQuantity(prevQuantity => prevQuantity + 1);
   }
 
   function decrementQuantity() {
-      if (quantity === 1) return; 
+      if (quantity === 0) return; 
       setQuantity(prevQuantity => prevQuantity - 1);
   }
   // function handleQuantity(e) {
@@ -82,14 +82,15 @@ const Product = () => {
                     readOnly
                 />
                 <button 
-                  className={`w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all ${quantity == 1 ? 'cursor-not-allowed' : ''}`} 
+                  className={`w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all ${quantity === 0 ? 'cursor-not-allowed' : ''}`} 
                   onClick={() => decrementQuantity()}
                 >-</button>
             </div>
             <div className='my-8'>
               <button 
-                className="mr-6 mt-4 bg-accent w-[120px] h-10 rounded text-primary button-shadow "
+                className={`mr-6 mt-4 bg-accent w-[120px] h-10 rounded text-primary button-shadow ${quantity === 0 ? "cursor-not-allowed" : ""}`}
                 onClick={() => setItemQuantity(productID, quantity)}  
+                disabled = {quantity === 0}
               >Add to cart</button>
               <button className="mr-6 mt-4 w-[120px] h-10 rounded button-shadow bg-primary text-accent border-2 border-accent hover:bg-accent hover:text-primary">Buy now</button>
             </div>

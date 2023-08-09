@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import { BsTrash3 } from 'react-icons/bs';
 import SimpleBar from 'simplebar-react';
@@ -46,11 +47,15 @@ const Cart = ({data}) => {
     // const parsedId = id.toString();
     return (
       <li key={index}>
-        <div key={index} className="flex flex-col w-full bg-slate rounded-md md:h-[200px] md:flex-row md:items-center md:p-5 md:text-center mb-8 md:mb-0 shadow-lg md:shadow-none md:gap-6">
-          <div className="w-full h-[200px] md:w-[160px] md:h-[160px] overflow-hidden bg-white py-4 md:basis-1/6 md:rounded">
-            <img src={image} alt="" className='w-full h-full object-contain'/>
-          </div>
-          <p className='text-1xl font-semibold m-3 md:basis-4/12'>{title}</p>
+        <div className="flex flex-col w-full bg-slate rounded-md md:h-[200px] md:flex-row md:items-center md:p-5 mb-8 md:mb-0 shadow-lg md:shadow-none md:gap-6">
+          <Link to={`/products/${id}`} className='md:basis-1/6'>
+            <div className="w-full h-[200px] md:w-[160px] md:h-[160px] overflow-hidden bg-white py-4 md:rounded">
+              <img src={image} alt="" className='w-full h-full object-contain'/>
+            </div>
+          </Link>
+          <Link to={`/products/${id}`} className='text-1xl font-semibold m-3 md:basis-4/12'>
+            <p >{title}</p>
+          </Link>
           <div className="mt-3 px-3 flex items-center md:basis-3/12 md:mx-auto md:justify-center">
             <button 
               className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all bg-primary" 
