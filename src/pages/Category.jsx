@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 // import useBreadcrumbs from 'use-react-router-breadcrumbs';
-import Breadcrumbs from '../components/Breadcrumbs';
+// import Breadcrumbs from '../components/Breadcrumbs';
 import Card from '../components/Card';
 import CardSkeletonLoader from '../components/CardSkeletonLoader';
 
@@ -29,7 +29,7 @@ const Category = () => {
   
   return (
     <>
-      <Breadcrumbs/>
+      {/* <Breadcrumbs/> */}
       <main className='max-w-screen-xl mx-auto px-10 py-10 z-20 min-h-screen'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>
           {
