@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { formatCurrency } from '../components/formatCurrency';
 
 const Product = () => {
   const { productID } = useParams();
-  const {cartItems, getItemQuantity, setItemQuantity, increaseQuantity, decreaseQuantity} = useShoppingCart();
+  const { getItemQuantity, setItemQuantity } = useShoppingCart();
 
   const {isLoading, error, data, isFetching} = useQuery({
     queryKey: [`product-${productID}`],
